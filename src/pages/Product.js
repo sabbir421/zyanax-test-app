@@ -18,7 +18,6 @@ const Product = () => {
   const productList = useSelector((state) => state.productList?.data);
   const [hoveredProduct, setHoveredProduct] = React.useState(null);
   const handleAddToCart = (product) => {
-    console.log("ADD CART", product);
     setCartValue(cartValue + 1);
     const productId = product._id;
     const productData = { productId, quantity: 1 };

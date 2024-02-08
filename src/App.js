@@ -7,6 +7,8 @@ import AdminHome from "./pages/AdminHome";
 import AdminProduct from "./pages/AdminProduct";
 import CreateProduct from "./pages/CreateProduct";
 import OrderPage from "./pages/OrderPage";
+import PromoCode from "./pages/PromoCode";
+import CreatePromo from "./pages/CreatePromo";
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
       <Route path="/admin/product" element={<AdminProduct />} />
       <Route path="/create/product" element={<CreateProduct />} />
       <Route path="/order" element={<OrderPage />} />
+      <Route path="/admin/promotion/promocode-list" element={<PromoCode />} />
+      <Route path="/admin/promotion/promocode" element={<CreatePromo />} />
     </Routes>
   );
 }

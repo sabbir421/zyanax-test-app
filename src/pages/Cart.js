@@ -34,7 +34,7 @@ const Cart = () => {
   useEffect(() => {
     dispatch(fetchCartList());
     dispatch(cartSummery());
-  }, [dispatch, subTotal]);
+  }, [dispatch]);
 
   useEffect(() => {
     setLocalCartList(cartList);
@@ -182,7 +182,8 @@ const Cart = () => {
               <Grid item xs={4} style={{ marginTop: "10px" }}>
                 <Typography>Order summary</Typography>
                 <p>
-                  Sub total({summery?.totalProducts}):{subTotal}{" "}
+                  Sub total({summery?.totalProducts}):
+                  {subTotal || summery?.subTotal}{" "}
                 </p>
                 <p>discount:0 </p>
                 <p>Shipping Charge:{summery?.shippingCharge} </p>
@@ -196,7 +197,10 @@ const Cart = () => {
                   />
                   <button>Apply</button>
                 </div>
-                <p>Total Payable : {subTotal + summery?.shippingCharge} </p>
+                <p>
+                  Total Payable :{" "}
+                  {(subTotal || summery?.subTotal) + summery?.shippingCharge}{" "}
+                </p>
               </Grid>
             </Grid>
           )}

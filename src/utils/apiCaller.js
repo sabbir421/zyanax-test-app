@@ -114,3 +114,12 @@ export const publicPatch = async (endpoint, body) => {
     throw error;
   }
 };
+export const publicPut = async (endpoint) => {
+  try {
+    const response = await axios.put(`${api}${endpoint}`, config);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};

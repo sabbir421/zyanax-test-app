@@ -12,6 +12,17 @@ export const fetchProductList = createAsyncThunk(
     }
   }
 );
+export const createProduct = createAsyncThunk("createProduct", async (data) => {
+  try {
+    const response = await publicPost("/product/add", data);
+    console.log("---------response-------->", response);
+    return response.data;
+  } catch (err) {
+    console.log("-------error------>", err);
+    return { error: err.message };
+  }
+});
+
 export const checkoutProduct = createAsyncThunk("checkout", async ({}) => {
   try {
     const response = await publicPost("/product/checkout", {});
@@ -52,6 +63,19 @@ const productSlice = createSlice({
         state.status = "succeeded";
       })
       .addCase(checkoutProduct.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      });
+
+    //add product
+    builder
+      .addCase(createProduct.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(createProduct.fulfilled, (state, action) => {
+        state.status = "succeeded";
+      })
+      .addCase(createProduct.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       });

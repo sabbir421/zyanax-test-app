@@ -16,6 +16,8 @@ import logger from "redux-logger";
 import { productReducer } from "./product";
 import { cartReducer } from "./cart";
 import { userReducer } from "./user";
+import { adminReducer } from "./admin";
+import { orderReducer } from "./order";
 
 const persistConfig = {
   key: "root",
@@ -26,6 +28,8 @@ const rootReducer = combineReducers({
   productList: productReducer,
   cartList: cartReducer,
   user: userReducer,
+  admin: adminReducer,
+  orders: orderReducer,
 });
 
 const persistedRootReducer = persistReducer(persistConfig, rootReducer);

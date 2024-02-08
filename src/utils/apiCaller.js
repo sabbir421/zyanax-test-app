@@ -1,6 +1,7 @@
 import axios from "axios";
+import { api } from "../config/config";
 
-const api = "http://localhost:8081";
+
 
 const config = {
   headers: {

@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { TextField, Button, Grid, Typography, Switch } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-// import { createPromocode } from "./actions/promocodeActions";
+import { createPromo } from "../state/promo/promoSlice";
+
 
 const CreateProduct = () => {
   const [promocode, setPromocode] = useState("");
@@ -10,24 +11,25 @@ const CreateProduct = () => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [useTime, setUseTime] = useState("");
-  const [isActive, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useState("INACTIVE");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSwitch = () => {
-    setIsActive(!isActive);
+    setIsActive("ACTIVE");
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({
+    const data={
       promocode,
       discountRate,
       startDate,
       endDate,
       useTime,
-      isActive,
-    });
+      status:isActive,
+    };
+    dispatch(createPromo(data))
   };
 
   return (

@@ -15,10 +15,8 @@ export const fetchProductList = createAsyncThunk(
 export const createProduct = createAsyncThunk("createProduct", async (data) => {
   try {
     const response = await publicPost("/product/add", data);
-    console.log("---------response-------->", response);
     return response.data;
   } catch (err) {
-    console.log("-------error------>", err);
     return { error: err.message };
   }
 });

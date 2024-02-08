@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { userSignup } from "../state/user/userSlice";
 import { useNavigate } from "react-router-dom";
 import { adminLogin } from "../state/admin/adminSlice";
+import { Typography } from "@mui/material";
 
 const AdminLogin = () => {
   const [userId, setUserId] = useState("");
@@ -59,6 +60,11 @@ const AdminLogin = () => {
           Sign in
         </button>
       </form>
+
+      <div >
+        <Typography>User id : Test_User2020</Typography> <br/>
+        <Typography>Password : Easy_123</Typography>
+      </div>
     </div>
   );
 };

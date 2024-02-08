@@ -18,6 +18,7 @@ import { cartReducer } from "./cart";
 import { userReducer } from "./user";
 import { adminReducer } from "./admin";
 import { orderReducer } from "./order";
+import { promoReducer } from "./promo";
 
 const persistConfig = {
   key: "root",
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   admin: adminReducer,
   orders: orderReducer,
+  promos:promoReducer
 });
 
 const persistedRootReducer = persistReducer(persistConfig, rootReducer);

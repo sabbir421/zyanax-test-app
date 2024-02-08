@@ -21,9 +21,9 @@ export const createProduct = createAsyncThunk("createProduct", async (data) => {
   }
 });
 
-export const checkoutProduct = createAsyncThunk("checkout", async ({}) => {
+export const checkoutProduct = createAsyncThunk("checkout", async (data) => {
   try {
-    const response = await publicPost("/product/checkout", {});
+    const response = await publicPost("/product/checkout", data);
     return response;
   } catch (err) {
     return { error: err.message };

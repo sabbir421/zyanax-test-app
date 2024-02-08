@@ -22,7 +22,7 @@ export const createPromo = createAsyncThunk("createPromo", async (data) => {
 const promoSlice = createSlice({
   name: "promo",
   initialState: {
-    data: null,
+    promos: [],
     status: "idle",
     error: null,
   },
@@ -34,7 +34,7 @@ const promoSlice = createSlice({
       })
       .addCase(fetchProdmoList.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.data = action.payload;
+        state.promos = action.payload;
       })
       .addCase(fetchProdmoList.rejected, (state, action) => {
         state.status = "failed";

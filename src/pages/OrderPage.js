@@ -53,14 +53,14 @@ const OrderPage = () => {
           <TableBody>
             {orders?.map((order) => (
               <TableRow
-                key={order.name}
+                key={order?._id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
                   1
                 </TableCell>
                 <TableCell align="right">1</TableCell>
-                <TableCell align="right">{order.price}</TableCell>
+                <TableCell align="right">{order?.totalPayable}</TableCell>
                 <TableCell align="right">
                   {order.status == "PENDING" && (
                     <div>

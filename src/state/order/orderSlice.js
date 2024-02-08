@@ -10,7 +10,6 @@ export const fetchOrder = createAsyncThunk("orders", async () => {
   }
 });
 export const confirmOrder = createAsyncThunk("confirmOrder", async (id) => {
-    console.log("Confirming order with ID:", id);
     try {
       const response = await publicPut(`/order/confirm/${id}`);
       console.log("Confirm order response:", response);

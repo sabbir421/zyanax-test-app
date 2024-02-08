@@ -18,6 +18,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { checkoutProduct } from "../state/product/productSlice";
 import PrimarySearchAppBar from "../components/Navbar";
+import { fetchProdmoList } from "../state/promo/promoSlice";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -30,10 +31,15 @@ const Cart = () => {
   const [isChecked, setIsChecked] = useState(false);
   const [showError, setShowError] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [discount, setDiscount] = useState(0);
+  const [totalPayable, setTotalPayable] = useState(
+    (subTotal || summery?.subTotal) + summery?.shippingCharge
+  );
 
   useEffect(() => {
     dispatch(fetchCartList());
     dispatch(cartSummery());
+    dispatch(fetchProdmoList())
   }, [dispatch]);
 
   useEffect(() => {
@@ -47,6 +53,7 @@ const Cart = () => {
       quantity: updatedCartList[index].quantity + 1,
     };
     setSubtotal(subTotal + cart.singlePrice);
+    setTotalPayable(totalPayable + cart.singlePrice);
     setLocalCartList(updatedCartList);
     dispatch(updateCart(updatedCartList[index]));
   };
@@ -59,6 +66,7 @@ const Cart = () => {
         quantity: updatedCartList[index].quantity - 1,
       };
       setSubtotal(subTotal - cart.singlePrice);
+      setTotalPayable(totalPayable - cart.singlePrice);
       setLocalCartList(updatedCartList);
       dispatch(updateCart(updatedCartList[index]));
     }
@@ -66,18 +74,40 @@ const Cart = () => {
 
   const handleCheck = (event) => {
     setIsChecked(event.target.checked);
-    setShowError(false); // Reset error when checkbox state changes
+    setShowError(false);
   };
-
+  const promoList = useSelector((state) => state.promos?.promos) || [];
   const handlePromoCodeChange = (event) => {
-    setPromoCode(event.target.value);
+    const inputPromoCode = event.target.value;
+    setPromoCode(inputPromoCode);
   };
+  const handleApplyPromo = () => {
+    const filteredPromos = promoList.filter((promo) => promo.promocode === promoCode);
+  
+    if (filteredPromos.length > 0) {
+      const promocode = filteredPromos[0];
+      const subTotal = summery.subTotal;
+  
+      const promoDiscount = subTotal * (promocode.discountRate / 100);
+      const discountedSubTotal = subTotal - promoDiscount;
+  
+      setDiscount(promoDiscount);
+      setSubtotal(discountedSubTotal);
+      setTotalPayable(discountedSubTotal + summery.shippingCharge);
+  
+      console.log("Promo Discount:", promoDiscount);
+      console.log("Total Payable:", discountedSubTotal + summery.shippingCharge);
+    } else {
+      console.log("Invalid promo code");
+    }
+  };
+  
 
   const handleCheckout = () => {
     if (!isChecked) {
       setShowError(true);
     } else {
-      dispatch(checkoutProduct({ Name: "shehab" }));
+      dispatch(checkoutProduct({ totalPayable, discount,subTotal,...summery }));
       dispatch(fetchCartList());
       dispatch(cartSummery());
       setShowModal(true);
@@ -185,7 +215,7 @@ const Cart = () => {
                   Sub total({summery?.totalProducts}):
                   {subTotal || summery?.subTotal}{" "}
                 </p>
-                <p>discount:0 </p>
+                <p>discount:{discount} </p>
                 <p>Shipping Charge:{summery?.shippingCharge} </p>
                 <p>Wallet Debit:0 </p>
                 <div onClick={checkLogin}>
@@ -195,12 +225,9 @@ const Cart = () => {
                     value={promoCode}
                     onChange={handlePromoCodeChange}
                   />
-                  <button>Apply</button>
+                  <button onClick={handleApplyPromo}>Apply</button>
                 </div>
-                <p>
-                  Total Payable :{" "}
-                  {(subTotal || summery?.subTotal) + summery?.shippingCharge}{" "}
-                </p>
+                <p>Total Payable : {totalPayable} </p>
               </Grid>
             </Grid>
           )}

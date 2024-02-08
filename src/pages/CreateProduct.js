@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { TextField, Button, Grid, Typography, Switch } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { createProduct } from "../state/product/productSlice";
 import { useNavigate } from "react-router-dom";
 
 const CreateProduct = () => {

@@ -137,7 +137,7 @@ const navigate=useNavigate()
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static" style={{backgroundColor:"orange"}}>
         <Toolbar>
           <Typography
             variant="h6"
@@ -145,9 +145,9 @@ const navigate=useNavigate()
             component="div"
             sx={{ display: { xs: "none", sm: "block" } }}
           >
-            MUI
+            TEST APP
           </Typography>
-          <Search>
+          {/* <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -155,7 +155,7 @@ const navigate=useNavigate()
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
             />
-          </Search>
+          </Search> */}
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton

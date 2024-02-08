@@ -6,13 +6,7 @@ import Sidebar from "../Sidebar";
 const Layout = ({ children }) => {
   return (
     <Grid container spacing={2}>
-      <Grid
-        style={{
-          marginTop: "65px",
-        }}
-        item
-        xs={3}
-      >
+      <Grid item xs={3}>
         <Sidebar />
       </Grid>
       <Grid item xs={9}>

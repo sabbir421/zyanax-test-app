@@ -1,8 +1,6 @@
 import axios from "axios";
 import { api } from "../config/config";
 
-
-
 const config = {
   headers: {
     "Content-Type": "application/json",
@@ -11,7 +9,7 @@ const config = {
 
 export const publicGet = async (endpoint) => {
   try {
-    const response = await axios.get(`${api}${endpoint}`, config);
+    const response = await axios.get(`${api}${endpoint}`, config)
     return response.data;
   } catch (error) {
     throw error;
